@@ -33,7 +33,7 @@ leksikon = pickle.load(f)
 f = open("termer", "r")
 termer = pickle.load(f)
 end = time.time()
-print "Loading pickles:", end-start, "seconds"
+print ("Loading pickles:", end-start, "seconds")
 
 from nltk.corpus import stopwords
 stopord = stopwords.words('danish')
@@ -56,7 +56,7 @@ for term in feature_termer:
         feature_termer_uden_tal.append(term)
 feature_termer = feature_termer_uden_tal
 end = time.time()
-print "Constructing feature_termer:", end-start, "seconds"
+print ("Constructing feature_termer:", end-start, "seconds")
 
 def term_extract(doc): # udtrækker dokumentets termer. Dubletter forekommer
     tekst = re.sub('["-,.:;()\'!?]', '', doc.tekst.lower())
@@ -79,7 +79,7 @@ try: # indlæs IM_featuresets, hvis det eksisterer - ellers oprettes dette
     IM_featuresets = pickle.load(f)
     f.close()
     end = time.time()
-    print "Indlæser featuresets:", end-start, "sekunder"
+    print ("Indlæser featuresets:", end-start, "sekunder")
 except:
     f = open("Infomedia_featuresets", "w")
     IM_featuresets = []
@@ -88,7 +88,7 @@ except:
     pickle.dump(IM_featuresets, f)
     f.close()
     end = time.time()
-    print "Opretter featuresets:", end-start, "sekunder"
+    print ("Opretter featuresets:", end-start, "sekunder")
 
 ## SCIKIT-LEARN
 
@@ -116,7 +116,9 @@ except:
     f.close()
     g.close()
 end = time.time()
-print "Indlæsning af IM_data og IM_target:", end-start
+print ("Indlæsning af IM_data og IM_target:", end-start)
+
+print (IM_data[:2])
 
 X_train, X_test, y_train, y_test = cross_validation.train_test_split(
     IM_data, IM_target, test_size=0.1, random_state=0)
@@ -133,7 +135,7 @@ sss = StratifiedShuffleSplit(IM_target, folds, test_size=0.1,
 
 global_end = time.time()
 
-print "Total runtime:", global_end-global_start, "seconds"
+print ("Total runtime:", global_end-global_start, "seconds")
 
 # skriver oversigt over kategorier til et Excel-ark
 ##from tempfile import TemporaryFile
